@@ -62,6 +62,11 @@ export default function Home() {
             <h2 className="text-2xl font-semibold">Login</h2>
           </div>
         </Link>
+        <Link href="/profile" passHref>
+          <div className="rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30">
+            <h2 className="text-2xl font-semibold">Profile</h2>
+          </div>
+        </Link>
         {/* <Link href="/verify" passHref>
           <div className="rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30">
             <h2 className="text-2xl font-semibold">Verify Account</h2>

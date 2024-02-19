@@ -1,6 +1,7 @@
 // pages/signup.tsx
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
+import { useRouter } from "next/router";
 import { SIGNUP_MUTATION } from "../graphql/mutations"; // Import your GraphQL mutation
 
 interface SignUpData {
@@ -21,6 +22,10 @@ const Signup = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+  const router = useRouter();
+  const handleSignInRedirect = () => {
+    router.push("/login");
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,6 +44,7 @@ const Signup = () => {
         ) {
           setPopupMessage("Invalid email address");
         } else {
+          router.push("./login");
         }
         // Handle success (e.g., redirect, show message)
       }
@@ -48,7 +54,10 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div
+      className="flex justify-center items-center h-screen bg-cover"
+      style={{ backgroundImage: "url('/assests/images/signup1.jpg')" }}
+    >
       <form
         onSubmit={handleSubmit}
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
@@ -119,11 +128,23 @@ const Signup = () => {
         )}
         <div className="flex items-center justify-between">
           <button
+            onSubmit={handleSignInRedirect}
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >
             Sign Up
           </button>
+        </div>
+        <div className="mt-4 text-center">
+          <p className="text-sm">
+            Already have an account?{" "}
+            <button
+              onClick={handleSubmit}
+              className="text-blue-500 hover:text-blue-700"
+            >
+              Sign in
+            </button>
+          </p>
         </div>
       </form>
     </div>

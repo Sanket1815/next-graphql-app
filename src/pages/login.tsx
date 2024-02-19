@@ -3,6 +3,12 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { LOGIN_MUTATION } from "../graphql/mutations";
 import { useRouter } from "next/router";
+import { jwtDecode } from "jwt-decode";
+
+export interface TokenPayload {
+  email: string;
+  password: string;
+}
 
 const Login = () => {
   const [login, { data, loading, error }] = useMutation(LOGIN_MUTATION);
@@ -19,21 +25,57 @@ const Login = () => {
 
     try {
       const result = await login({ variables: { input: formData } });
+      console.log(`Result ${JSON.stringify(result)}`);
+      const { message, token } = result.data.login;
+      console.log(message, "message");
+      console.log("token", token);
 
       // Assuming the mutation result contains a field 'data' with the user's information on success
       if (
         result.data &&
-        result.data.login == "Approval pending! Try after some time"
+        message == "Approval pending! Try after some time"
+        //result.data.login == "Approval pending! Try after some time"
       ) {
         setPopupMessage("Approval Pending! Try after some time.");
         // Here you can redirect or perform other actions as needed
         // router.push("/verify");
-      } else if (result.data && result.data.login == "User Not Found") {
+      } else if (
+        result.data &&
+        message == "Wait for Approval! Try after some time"
+        //result.data.login == "Wait for Approval! Try after some time"
+      ) {
+        setPopupMessage("Wait for Approval! Try after some time");
+      } else if (
+        result.data &&
+        message == "User Not Found"
+        //result.data.login == "User Not Found"
+      ) {
         setPopupMessage("User not found");
-      } else if (result.data && result.data.login == "InCorrect Password") {
+      } else if (
+        result.data &&
+        message == "InCorrect Password"
+        //result.data.login == "InCorrect Password"
+      ) {
         setPopupMessage("InCorrect Password");
+      } else if (result.data && message === "Successfully LoggedIn") {
+        // Store the token for future requests
+        if (!!result.data.login.isAdmin) {
+          // Assuming 'isAdmin' is a flag in your response
+          // Redirect to the admin profile page
+          const decoded = jwtDecode<TokenPayload>(token!);
+          router.push({
+            pathname: "/profile",
+            query: { email: decoded.email },
+          }); // Change '/adminProfile' to the actual admin profile path
+        } else {
+          localStorage.setItem("jwtToken", token);
+          router.push({
+            pathname: "/verify",
+            query: { email: token },
+          });
+        }
       } else {
-        router.push("/verify");
+        setPopupMessage("Error Logging In");
       }
     } catch (err) {
       console.error("Error logging in:", err);
@@ -41,7 +83,10 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div
+      className="flex justify-center items-center h-screen bg-cover"
+      style={{ backgroundImage: "url('/assests/images/login1.jpg')" }}
+    >
       <form
         onSubmit={handleSubmit}
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
@@ -82,7 +127,7 @@ const Login = () => {
         </div>
         <div className="flex items-center justify-between">
           <button
-            onClick={() => console.log("Button clicked")}
+            onClick={handleSubmit}
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >
