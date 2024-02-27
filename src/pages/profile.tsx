@@ -1,346 +1,14 @@
-// // pages/profile.tsx
-// // import React, { useState } from "react";
-// // import { useQuery } from "@apollo/client";
-// import { GET_USERS } from "../graphql/queries";
-// // Import your GraphQL queries and mutations here
-
-// // const ProfilePage = () => {
-// //   // Initial user data - replace with your GraphQL data fetching
-// //   const [user, setUser] = useState({
-// //     name: "John Doe",
-// //     email: "johndoe@example.com",
-// //     mobile: "+1 88888888",
-// //     address: "America",
-// //     website: "https://johndoe.com",
-// //     github: "https://github.com/johndoe",
-// //   });
-// //   const [editMode, setEditMode] = useState(false);
-
-// //   const handleInputChange = (e: any) => {
-// //     const { name, value } = e.target;
-// //     setUser({ ...user, [name]: value });
-// //   };
-
-// //   const handleSubmit = (e: any) => {
-// //     e.preventDefault();
-// //     // Here you would typically call your GraphQL mutation
-// //     console.log("Form submitted", user);
-// //     setEditMode(false);
-// //   };
-
-// //   return (
-// //     <div className="bg-black p-4 flex justify-center items-start md:items-center h-dvh w-screen">
-// //       <div className="bg-[url('/assests/images/profile4.jpg')] shadow rounded-lg h-screen w-lvw">
-// //         <div className="flex flex-col md:flex-row md:items-start">
-// //           <div className="md:flex-1 text-center p-4">
-// //             <div className="inline-block rounded-full bg-gray-200 h-24 w-24 flex items-center justify-center mb-4">
-// //               <span>Profile Photo</span>
-// //             </div>
-// //             <h1 className="text-xl font-semibold">{user.name}</h1>
-// //             <p className="text-xl">{user.email}</p>
-// //             <div className="text-xl flex flex-col items-center mt-4">
-// //               <a
-// //                 href={user.website}
-// //                 target="_blank"
-// //                 rel="noopener noreferrer"
-// //                 className="text-blue-600 hover:text-blue-800"
-// //               >
-// //                 Website
-// //               </a>
-// //               <a
-// //                 href={user.github}
-// //                 target="_blank"
-// //                 rel="noopener noreferrer"
-// //                 className="text-blue-600 hover:text-blue-800"
-// //               >
-// //                 GitHub
-// //               </a>
-// //             </div>
-// //             {/* Social links would go here */}
-// //           </div>
-// //           <div className="md:flex-1 p-4">
-// //             {/* Form for editing user details */}
-// //             <form onSubmit={handleSubmit} className="space-y-4">
-// //               <div>
-// //                 <label className="text-gray-600">Full Name</label>
-// //                 <input
-// //                   type="text"
-// //                   name="name"
-// //                   value={user.name}
-// //                   onChange={handleInputChange}
-// //                   disabled={!editMode}
-// //                   className="mt-1 p-2 border rounded w-full"
-// //                 />
-// //               </div>
-// //               <div>
-// //                 <label className="text-gray-600">Email</label>
-// //                 <input
-// //                   type="text"
-// //                   name="email"
-// //                   value={user.email}
-// //                   onChange={handleInputChange}
-// //                   disabled={!editMode}
-// //                   className="mt-1 p-2 border rounded w-full"
-// //                 />
-// //               </div>
-// //               <div>
-// //                 <label className="text-gray-600">Moblie Number</label>
-// //                 <input
-// //                   type="text"
-// //                   name="moblie"
-// //                   value={user.mobile}
-// //                   onChange={handleInputChange}
-// //                   disabled={!editMode}
-// //                   className="mt-1 p-2 border rounded w-full"
-// //                 />
-// //               </div>
-// //               <div>
-// //                 <label className="text-gray-600">Address</label>
-// //                 <input
-// //                   type="text"
-// //                   name="address"
-// //                   value={user.address}
-// //                   onChange={handleInputChange}
-// //                   disabled={!editMode}
-// //                   className="mt-1 p-2 border rounded w-full"
-// //                 />
-// //               </div>
-// //               {/* Repeat for other fields like email, phone, etc. */}
-// //               <div className="flex justify-end">
-// //                 <button
-// //                   type="button"
-// //                   onClick={() => setEditMode(!editMode)}
-// //                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-// //                 >
-// //                   {editMode ? "Cancel" : "Edit"}
-// //                 </button>
-// //                 {editMode && (
-// //                   <button
-// //                     type="submit"
-// //                     className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-2"
-// //                   >
-// //                     Save Changes
-// //                   </button>
-// //                 )}
-// //               </div>
-// //             </form>
-// //           </div>
-// //         </div>
-// //       </div>
-// //     </div>
-// //   );
-// // };
-// // const Profile: React.FC = () => {
-// //   const { data, loading, error } = useQuery(GET_USERS);
-
-// //   if (loading) return <p>Loading...</p>;
-// //   if (error) return <p>Error: {error.message}</p>;
-
-// //   const user = data!; // Type assertion assuming the query is valid
-
-// //   return (
-// //     <div className="container mx-auto p-4 md:px-8 lg:px-16">
-// //       <div className="flex flex-col items-center space-y-4">
-// //         <h2 className="text-2xl font-bold">Welcome, {user.name}!</h2>
-// //         <img
-// //           src={user.avatar}
-// //           alt={user.name}
-// //           className="w-40 h-40 rounded-full object-cover md:w-64 md:h-64 lg:w-80 lg:h-80"
-// //         />
-// //         <div className="flex space-x-4 md:space-x-8">
-// //           <a
-// //             href={user.facebook}
-// //             className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-// //           >
-// //             Facebook
-// //           </a>
-// //           <a
-// //             href={user.twitter}
-// //             className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-// //           >
-// //             Twitter
-// //           </a>
-// //           <a
-// //             href={user.instagram}
-// //             className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-// //           >
-// //             Instagram
-// //           </a>
-// //         </div>
-// //         <ul className="list-disc ml-4 md:ml-8">
-// //           <li>Email: {user.email}</li>
-// //           <li>Phone: {user.mobileNumber}</li>
-// //           <li>Website: {user.website}</li>
-// //           <li>Address: {user.address}</li>
-// //         </ul>
-// //       </div>
-// //     </div>
-// //   );
-// // };
-// // profile.tsx
-
-// import React, { useState, useEffect } from "react";
-// import { gql, useMutation, useQuery } from "@apollo/client";
-
-// // pages/profile.tsx in your Next.js app
-// const Profile: React.FC = () => {
-//   // Placeholder data - in a real app, fetch this data with a GraphQL query
-//   const userData = {
-//     firstName: "Yuyun",
-//     lastName: "Francis",
-//     email: "yuyunfrancis@email.com",
-//     phoneNumber: "+237 673 993 113",
-//     bio: "",
-//   };
-
-//   // Function to handle profile updates - in a real app, this would use a GraphQL mutation
-//   const handleProfileUpdate = async (updatedData: typeof userData) => {
-//     console.log("Update profile with this data:", updatedData);
-//     // Implement your GraphQL mutation here
-//   };
-
-//   return (
-//     <div className="container mx-auto p-4">
-//       <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
-//         <div className="-mx-3 md:flex mb-6">
-//           <div className="md:w-1/2 px-3 mb-6 md:mb-0">
-//             <label
-//               className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-//               htmlFor="first-name"
-//             >
-//               First Name
-//             </label>
-//             <input
-//               className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3"
-//               id="first-name"
-//               type="text"
-//               placeholder={userData.firstName}
-//             />
-//           </div>
-//           <div className="md:w-1/2 px-3">
-//             <label
-//               className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-//               htmlFor="last-name"
-//             >
-//               Last Name
-//             </label>
-//             <input
-//               className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
-//               id="last-name"
-//               type="text"
-//               placeholder={userData.lastName}
-//             />
-//           </div>
-//         </div>
-//         {/* More input fields for email, phone, etc. */}
-//         <div className="-mx-3 md:flex mt-2">
-//           <div className="md:w-full px-3">
-//             <button
-//               className="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-//               type="button"
-//               onClick={() => handleProfileUpdate(userData)}
-//             >
-//               Save
-//             </button>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Profile;
-
 // pages/profile.tsx
 import { useQuery, useMutation, gql } from "@apollo/client";
 import React, { useState, useEffect } from "react";
 import { GETSINGLEUSER } from "../graphql/queries";
+import { UPDATEUSER_MUTATION } from "../graphql/mutations";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-// const GET_USER = gql`
-//   query {
-//     getUser {
-//       name
-//       email
-//       address
-//       mobileNumber
-//       lastName
-//     }
-//   }
-// `;
-
-// Replace UPDATE_USER_DETAILS with your actual GraphQL mutation
-const UPDATE_USER_DETAILS = gql`
-  mutation updateUser($input: UserUpdateParams!) {
-    updateUser(input: $input)
-  }
-`;
-
 const Profile = () => {
-  //const router = useRouter();
-  // const { loading, error, data } = useQuery(GETSINGLEUSER, {
-  //   variables: { input: { email: router.query.email } },
-  // });
-  // const [formData, setUserProfile] = useState({
-  //   name: "",
-  //   email: "",
-  //   address: "",
-  //   mobileNumber: "",
-  //   lastName: "",
-  //   // Add other fields as necessary
-  // });
-  // const [updateUser, { loading: updating, error: updateError }] =
-  //   useMutation(UPDATE_USER_DETAILS);
-  // const [editMode, setEditMode] = useState(false);
-  // // const [formData, setFormData] = useState({
-  // //   name: "",
-  // //   lastName: "",
-  // //   mobileNumber: "",
-  // //   address: "",
-  // //   email: "",
-  // // });
-
-  // // Local state to manage form inputs
-  // const [user, setUser] = useState({
-  //   name: "",
-  //   email: "",
-  //   address: "",
-  //   mobileNumber: "",
-  //   lastName: "",
-  // });
-
-  // // If the data is loaded, initialize the form state
-  // if (data && data.getUser && user.name === "") {
-  //   setUser(data.getUser);
-  // }
-
-  // const handleInputChange = (e: any) => {
-  //   const { name, value } = e.target;
-  //   setUser({
-  //     ...user,
-  //     [name]: value,
-  //   });
-  // };
-
-  // const handleSubmit = async (e: any) => {
-  //   e.preventDefault();
-  //   try {
-  //     await updateUser({
-  //       variables: {
-  //         ...user,
-  //       },
-  //     });
-  //     alert("Profile updated successfully!");
-  //   } catch (error: any) {
-  //     alert("Failed to update profile. Error: " + error.message);
-  //   }
-  // };
-
-  // if (loading) return <p>Loading...</p>;
-  // if (error) return <p>Error :(</p>;
   const router = useRouter();
-  console.log(`ProfileEmail ${JSON.stringify(router.query)}`);
+  //console.log(`ProfileEmail ${JSON.stringify(router.query)}`);
   const { loading, error, data } = useQuery(GETSINGLEUSER, {
     variables: { input: { email: router.query.email } },
   });
@@ -352,12 +20,26 @@ const Profile = () => {
     address: "",
     mobileNumber: "",
     lastName: "",
+    about: "",
     // Add other fields as necessary
   });
 
   const [updateUser, { loading: updating, error: updateError }] =
-    useMutation(UPDATE_USER_DETAILS);
+    useMutation(UPDATEUSER_MUTATION);
   const [editMode, setEditMode] = useState(false);
+
+  const handleResetPassword = () => {
+    router.push({
+      pathname: "/resetpassword",
+      query: { email: router.query.email },
+    });
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("jwtToken"); // Replace 'userToken' with your actual token key
+
+    router.push("/login"); // Replace '/login' with the path to your login page
+  };
 
   // Initialize the form state when data is loaded
   useEffect(() => {
@@ -387,9 +69,17 @@ const Profile = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    const input = {
+      id: data.getSingleUser.id,
+      name: formData.name,
+      address: formData.address,
+      mobileNumber: formData.mobileNumber,
+      lastName: formData.lastName,
+      about: formData.about,
+    };
     try {
       await updateUser({
-        variables: { input: formData },
+        variables: { input: input },
       });
       alert("Profile updated successfully!");
       setEditMode(false);
@@ -514,6 +204,7 @@ const Profile = () => {
                   fill=""
                 />
               </svg>
+              <span>Edit</span>
               <input
                 type="file"
                 name="profile"
@@ -528,7 +219,7 @@ const Profile = () => {
             {formData.name}
           </h3>
           <p className="font-medium">Student</p>
-          <div className="mx-auto mb-5.5 mt-4.5 grid max-w-94 grid-cols-3 rounded-md border border-stroke py-2.5 shadow-1 dark:border-strokedark dark:bg-[#37404F]">
+          {/* <div className="mx-auto mb-5.5 mt-4.5 grid max-w-94 grid-cols-3 rounded-md border border-stroke py-2.5 shadow-1 dark:border-strokedark dark:bg-[#37404F]">
             <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
               <span className="font-semibold text-black dark:text-white">
                 259
@@ -547,20 +238,14 @@ const Profile = () => {
               </span>
               <span className="text-sm">Following</span>
             </div>
-          </div>
+          </div> */}
 
-          <div className="mx-auto max-w-180">
+          {/* <div className="mx-auto max-w-180">
             <h4 className="font-semibold text-black dark:text-white">
               About Me
             </h4>
-            <p className="mt-4.5">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Pellentesque posuere fermentum urna, eu condimentum mauris tempus
-              ut. Donec fermentum blandit aliquet. Etiam dictum dapibus
-              ultricies. Sed vel aliquet libero. Nunc a augue fermentum,
-              pharetra ligula sed, aliquam lacus.
-            </p>
-          </div>
+            <p className="mt-4.5">{formData.about}</p>
+          </div> */}
           <div className="bg-white shadow-md rounded-lg p-6">
             <h2 className="text-2xl font-semibold">About</h2>
             <form onSubmit={handleSubmit}>
@@ -625,7 +310,7 @@ const Profile = () => {
                   <label className="block">
                     Moblie Number
                     <input
-                      type="text"
+                      type="number"
                       name="moblie number"
                       value={formData.mobileNumber}
                       onChange={handleInputChange}
@@ -661,6 +346,22 @@ const Profile = () => {
                     onClick={() => setEditMode(true)}
                   >
                     Edit
+                  </button>
+                  &nbsp;&nbsp;&nbsp;
+                  <button
+                    type="button"
+                    className="px-4 py-2 rounded bg-red-500 text-white hover:bg-red-600"
+                    onClick={handleResetPassword}
+                  >
+                    Reset Password
+                  </button>
+                  &nbsp;&nbsp;&nbsp;
+                  <button
+                    type="button"
+                    className="px-4 py-2 rounded bg-red-500 text-white hover:bg-red-600"
+                    onClick={handleLogout}
+                  >
+                    Logout
                   </button>
                 </div>
               )}

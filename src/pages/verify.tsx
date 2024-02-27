@@ -24,14 +24,14 @@ const VerifyPage = () => {
     try {
       await verifyToken({ variables: { input: { token } } });
       const gettoken = localStorage.getItem("jwtToken");
-      console.log("token", gettoken);
+      // console.log("token", gettoken);
       const decoded = jwtDecode<TokenPayload>(gettoken!);
-      console.log("email", decoded.email);
+      // console.log("email", decoded.email);
       router.push({
         pathname: "/profile",
         query: { email: decoded.email },
       });
-      console.log("data", data);
+      // console.log("data", data);
       // Handle success (e.g., show a success message, redirect, etc.)
       console.log("Verification successful!"); // Replace with appropriate actions
     } catch (err) {

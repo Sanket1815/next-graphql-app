@@ -19,16 +19,19 @@ const Login = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+  const handleForgotPasswordClick = () => {
+    router.push("/emailotp"); // Navigate to reset password page
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
       const result = await login({ variables: { input: formData } });
-      console.log(`Result ${JSON.stringify(result)}`);
+      //console.log(`Result ${JSON.stringify(result)}`);
       const { message, token } = result.data.login;
-      console.log(message, "message");
-      console.log("token", token);
+      //console.log(message, "message");
+      //console.log("token", token);
 
       // Assuming the mutation result contains a field 'data' with the user's information on success
       if (
@@ -134,6 +137,12 @@ const Login = () => {
             Log In
           </button>
         </div>
+        <a
+          onClick={handleForgotPasswordClick}
+          className="cursor-pointer inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+        >
+          Forgot Password?
+        </a>
         {popupMessage && (
           <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex justify-center items-center">
             <div className="bg-white p-5 rounded-lg shadow-lg">

@@ -9,7 +9,7 @@ export const GET_USERS = gql`
       name
       email
       address
-      moblieNumber
+      mobileNumber
       lastName
     }
   }
@@ -24,9 +24,10 @@ export const GETSINGLEUSER = gql`
       name
       email
       address
-      moblieNumber
+      mobileNumber
       lastName
       isAdmin
+      about
     }
   }
 `;

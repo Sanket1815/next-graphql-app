@@ -20,9 +20,9 @@ const AdminPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4">
+    <div className="min-h-screen bg-cyan-500 p-4">
       <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto bg-grey-500">
         <table className="min-w-full bg-white">
           <thead>
             <tr>

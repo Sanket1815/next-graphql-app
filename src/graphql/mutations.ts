@@ -33,3 +33,21 @@ export const APPROVE_REQUEST = gql`
     approveRequest(input: $input)
   }
 `;
+
+export const SENDMAILOTP = gql`
+  mutation sendEmailOtp($input: EmailOTPParams!) {
+    sendEmailOtp(input: $input)
+  }
+`;
+
+export const VERIFYOTP = gql`
+  mutation verifyOtp($input: VerifyOtpParams!) {
+    verifyOtp(input: $input)
+  }
+`;
+
+export const PASSWORD_RESET = gql`
+  mutation passwordReset($input: PasswordResetParams!) {
+    passwordReset(input: $input)
+  }
+`;

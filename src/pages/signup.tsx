@@ -37,10 +37,12 @@ const Signup = () => {
       } else if (formData.password == "" || formData.password == null) {
         setPopupMessage("Password should not be empty");
       } else {
+        // console.log("--------------");
         const result = await signup({ variables: { input: formData } });
+        //console.log("result", result);
         if (
           result.data &&
-          result.data == "Please enter a vaild email address"
+          result.data.createUser === "Please enter a vaild email address"
         ) {
           setPopupMessage("Invalid email address");
         } else {
@@ -48,7 +50,9 @@ const Signup = () => {
         }
         // Handle success (e.g., redirect, show message)
       }
-    } catch (err) {
+    } catch (err: any) {
+      if (err.graphQLErrors?.[0]?.message == "Email already exists")
+        setPopupMessage("User already exists");
       // Handle error
     }
   };
